@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivia Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #question { margin: 20px; }
+        .answer { cursor: pointer; margin: 5px; padding: 10px; border: 1px solid #ccc; }
+        .correct { background-color: lightgreen; }
+        .wrong { background-color: lightcoral; }
+    </style>
+</head>
+<body>
+
+<h1>Trivia Quiz</h1>
+<div id="question">Question will appear here</div>
+<div id="answers"></div>
+
+<script>
+    const questions = [
+        {
+            question: "What is the capital of France?",
+            answers: ["Berlin", "Madrid", "Paris", "Rome"],
+            correct: 2
+        },
+        {
+            question: "What is 2 + 2?",
+            answers: ["3", "4", "5", "6"],
+            correct: 1
+        }
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('question').innerText = q.question;
+        const answersDiv = document.getElementById('answers');
+        answersDiv.innerHTML = '';
+        q.answers.forEach((answer, index) => {
+            const div = document.createElement('div');
+            div.innerText = answer;
+            div.className = 'answer';
+            div.onclick = () => checkAnswer(index);
+            answersDiv.appendChild(div);
+        });
+    }
+
+    function checkAnswer(index) {
+        const correctIndex = questions[currentQuestion].correct;
+        if (index === correctIndex) {
+            alert('Correct!');
+        } else {
+            alert('Wrong!');
+        }
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            alert('Quiz Finished!');
+        }
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
